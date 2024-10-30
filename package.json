@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tsconfig/node20": "^20.1.4",
     "@vue/tsconfig": "^0.5.1",
     "@vueuse/core": "^11.1.0",
     "@vueuse/integrations": "^11.1.0",
