@@ -16,13 +16,23 @@
        avec un getter dans le store
 - Similairement à l'update, le delete peut changer l'ordre. Je vais rester consistant et aussi demander un
   rafraichissement de l'index après la suppression
+- Note 2024-10-30 : 
+  - Finalement, on n'a pas besoin de raffraichir l'index après suppresion ou déplacement.
+    - Assumant un seul utilisateur par liste
+    - Ceci est dû à l'approche selon l'index avec Sortable 
+      - Les index sont mis-à-jour automatiquements avec le sort
+    - On assume aussi que les positions dans la BD restent naturelles
+      - Séquentiel, commençant à 1.
+      - Techniquement, ceci pourrait être brisé par un appel direct à l'API qui demande à mettre un élément à une position plus haute que le max.
 - Pour l'instant, l'app ajoute les nouveaux TODO à la fin, une considération aurait pu être fait pour mettre en
   premier (pousser le reste ou inverser l'ordre de présentation).
 - Pour l'édition, j'aurais pu prendre plusieur approche
   - Icone additionelle avec l'icone de suppression
   - Menu hamburger d'action à la fin
   - Icône d'edit après la description
-  - Mais j'ai décidé de suivre l'approche google task ou un click simple sur l'élément le met en edit mode et un hold est pour le dragé
+  - Mais j'ai décidé de suivre l'approche google task ou 
+    - Un click simple sur l'élément le met en edit mode 
+    - Un hold est pour le drag.
 
 ## Fonctionalités requises
 
