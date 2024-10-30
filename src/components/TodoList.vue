@@ -14,6 +14,8 @@ const taskStore = useTasksStore()
 const list: Ref<HTMLElement | null> = ref(null)
 
 useSortable(list, taskStore.tasks, {
+  touchStartThreshold: 10,
+
   onUpdate: async ({newIndex, item}: SortableUpdateEvent) => {
     if (!item.dataset.id) {
       return;

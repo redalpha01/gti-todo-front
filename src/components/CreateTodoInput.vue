@@ -3,14 +3,19 @@
     lang="ts"
 >
 import {useTasksStore} from "@/store/tasks.store";
-import {ref} from "vue";
-import {de} from "vuetify/locale";
+import {type Ref, ref} from "vue";
 
 const taskStore = useTasksStore();
-const description = ref('');
+const description: Ref<string> = ref('');
+let submitted = false;
 
-// On veut sauvegarder le todo dès qu'on clique à l'exterieur du todo
+// On veut sauvegarder la tache dès qu'on clique à l'exterieur de l'input
 const onInputBlur = () => {
+  if (submitted) {
+    return;
+  }
+  submitted = true;
+
   if (description.value === "") {
     taskStore.showAddInput = false;
     return;
