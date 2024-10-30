@@ -8,6 +8,9 @@ export const useTasksStore = defineStore(entity, {
         tasks: [] as Task[],
         loading: false as boolean,
         showAddInput: false as boolean,
+        foo: null as any,
+        bar: null as any,
+        foobar: null as any,
     }),
     actions: {
         async index(): Promise<void> {
@@ -36,7 +39,7 @@ export const useTasksStore = defineStore(entity, {
             this.loading = true;
 
             await $patch(`${entity}/${id}`, data, ({task}) => {
-                // On met a jour dans la liste en replaçant la tache qu'on vient de modifier
+                // On met à jour dans la liste en replaçant la tache qu'on vient de modifier
                 this.tasks.splice(this.tasks.findIndex(function (taskInList) {
                     return taskInList.id === task.id;
                 }), 1, task);
@@ -48,10 +51,11 @@ export const useTasksStore = defineStore(entity, {
         async delete(id: number): Promise<void> {
             this.loading = true;
 
-            await $delete(`${entity}/${id}`, ({task}) => {
-                // On met a jour dans la liste en replaçant la tache qu'on vient de modifier
+            await $delete(`${entity}/${id}`, () => {
+                // On met à jour dans la liste en replaçant la tache qu'on vient de modifier
                 this.tasks.splice(this.tasks.findIndex(function (taskInList) {
-                    return taskInList.id === task.id;
+
+                    return taskInList.id === id;
                 }), 1);
 
             }).then(() => {

@@ -99,7 +99,7 @@ const $api = async (
 };
 
 /**
- * Normalise les valeur booléenes en binaire pour éviter les string "true"
+ * Normalise les valeur booléenes en binaire pour éviter les strings "true"
  * @param data
  */
 // const transformGetData = (data: any): any => {
