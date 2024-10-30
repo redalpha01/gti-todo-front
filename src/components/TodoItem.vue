@@ -2,7 +2,7 @@
     setup
     lang="ts"
 >
-import {computed, type PropType, ref, watch} from "vue";
+import {computed, type PropType, type Ref, ref, watch} from "vue";
 import {useTasksStore} from "@/store/tasks.store";
 
 const props = defineProps({
@@ -14,8 +14,10 @@ const props = defineProps({
 
 const taskStore = useTasksStore();
 // On met la valeur de is_done dans une variable réactive locale pour permettre de l'utiliser dans le v-model du checkbox
-const isDone = ref(props.task.is_done);
-const titleClass = computed(() => {
+const isDone: Ref<boolean> = ref(props.task.is_done);
+const description: Ref<string | null> = ref(props.task.description);
+const isEdit: Ref<boolean> = ref(false);
+const descriptionClass = computed(() => {
   return isDone.value ? 'text-decoration-line-through' : '';
 })
 
@@ -29,18 +31,53 @@ const onDoneCheckChange = () => {
   });
 }
 
+const onDescriptionClick = () => {
+  isEdit.value = true;
+}
+
+const onDescriptionChange = () => {
+  taskStore.update(props.task.id, {
+    description: description.value
+  }).then(() => {
+    isEdit.value = false;
+  });
+}
+
 // Si la tache est mise à jour autrement, on met à jour la valeur locale
-watch(() => props.task, () => {
+watch(() => props.task?.is_done, () => {
   isDone.value = props.task.is_done;
-})
+});
+
+watch(() => props.task?.description, () => {
+  description.value = props.task.description;
+});
 </script>
 
 <template>
 
-  <v-list-item class="cursor-grab item">
+  <v-list-item class="cursor-grab item" :data-id="task.id">
     <template #title>
-      <span :class="titleClass">{{ task.description ?? '' }}</span>
+      <template
+          v-if="isEdit">
+        <form @submit.prevent="onDescriptionChange">
+          <v-text-field
+              density="compact"
+              hide-details
+              autofocus
+              @blur="onDescriptionChange"
+              v-model="description"
+          />
+        </form>
+      </template>
+
+      <div
+          v-else
+          @click="onDescriptionClick"
+          :class="descriptionClass"
+          class="w-100"
+      >{{ description ?? '' }}</div>
     </template>
+
     <template #prepend>
       <v-checkbox
           hide-details
@@ -49,6 +86,7 @@ watch(() => props.task, () => {
           @change="onDoneCheckChange"
       ></v-checkbox>
     </template>
+
     <template #append>
       <v-icon
           class="cursor-pointer"

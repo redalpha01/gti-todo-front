@@ -28,8 +28,8 @@
 
 - [x] Création de nouveau TODO
 - [x] Suppression de TODO
-- [ ] Édition du titre du TODO
-- [ ] Déplacer les TODO dans la liste
+- [x] Édition du titre du TODO
+- [x] Déplacer les TODO dans la liste
 - [x] Marquer un item comme complété
 - Pas besoin d'authentication
 - Pas besoin de routing (front)
