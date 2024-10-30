@@ -24,7 +24,9 @@ const onDeleteBtnClicked = () => {
 }
 
 const onDoneCheckChange = () => {
-
+  taskStore.update(props.task.id, {
+    is_done: isDone.value
+  });
 }
 
 // Si la tache est mise à jour autrement, on met à jour la valeur locale

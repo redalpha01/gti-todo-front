@@ -27,10 +27,10 @@
 ## Fonctionalités requises
 
 - [x] Création de nouveau TODO
-- [ ] Suppression de TODO
+- [x] Suppression de TODO
 - [ ] Édition du titre du TODO
 - [ ] Déplacer les TODO dans la liste
-- [ ] Marquer un item comme complété
+- [x] Marquer un item comme complété
 - Pas besoin d'authentication
 - Pas besoin de routing (front)
 - Pas besoin de l10n
